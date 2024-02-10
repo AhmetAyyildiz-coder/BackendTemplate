@@ -42,4 +42,5 @@ public class Product : IEntity
     public decimal UnitPrice { get; set; }
 
     public short UnitsInStock { get; set; }
+    public Category Category { get; set; }
 }

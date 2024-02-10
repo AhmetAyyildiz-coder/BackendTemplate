@@ -24,7 +24,7 @@ namespace WebAPI.Controllers
             {
                 return Ok(data.Data);
             }
-            return BadRequest(data.Message);
+            return BadRequest(data);
         }
 
         [HttpGet("getbycategory({categoryId:int})")]
@@ -36,7 +36,7 @@ namespace WebAPI.Controllers
                 return Ok(result.Data);
             }
 
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpGet("getproduct")]
@@ -48,7 +48,7 @@ namespace WebAPI.Controllers
                 return Ok(data.Data);
             }
 
-            return BadRequest(data.Message);
+            return BadRequest(data);
         }
         [HttpPost("addproduct")]
         public IActionResult AddProduct([FromBody] Product product) // Ekleme: 'FromBody' kullanarak isteği gövdeden alıyoruz.
@@ -59,7 +59,7 @@ namespace WebAPI.Controllers
                 return Ok(result);
             }
 
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpPut("updateproduct")]
@@ -71,7 +71,7 @@ namespace WebAPI.Controllers
                 return Ok(result);
             }
 
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpDelete("deleteproduct")]
@@ -88,7 +88,7 @@ namespace WebAPI.Controllers
                 return Ok(result);
             }
 
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
         
         
