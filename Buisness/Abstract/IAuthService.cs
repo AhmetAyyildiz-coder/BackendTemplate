@@ -1,7 +1,7 @@
 ﻿using Core.Entities;
 using Core.Utilities.Results;
 using Core.Utilities.Security.JWT;
-using Entities.DTOs;
+using DTOs.Users;
 
 namespace Buisness.Abstract;
 

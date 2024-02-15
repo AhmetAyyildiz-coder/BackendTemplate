@@ -28,5 +28,7 @@ public class AutofacBuisnessModule : Module
         builder.RegisterType<AuthManager>().As<IAuthService>();
 
         builder.RegisterType<JwtHelper>().As<ITokenHelper>();
+
+       
     }
 }

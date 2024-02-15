@@ -1,12 +1,12 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Buisness.Concrete;
 using Buisness.DependenciesResolvers.Autofac;
+using Buisness.Mapping.Automapper;
+
 using Core.Utilities.Security.Encyption;
-using Core.Utilities.Security.JWT;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Microsoft.OpenApi.Models;
 using TokenOptions = Core.Utilities.Security.JWT.TokenOptions;
 
@@ -25,6 +25,7 @@ public class Program
                 containerBuilder.RegisterModule(new AutofacBuisnessModule());
             });
 
+       
 
         var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
         if (tokenOptions is null)
@@ -51,7 +52,8 @@ public class Program
 
         builder.Services.AddAuthorization();
 
-        
+        builder.Services.AddAutoMapper(typeof(MappingProfile));
+
         // Add services to the container.
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -75,11 +77,11 @@ public class Program
                     {
                         Reference = new OpenApiReference
                         {
-                            Type=ReferenceType.SecurityScheme,
-                            Id="Bearer"
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
                         }
                     },
-                    new string[]{}
+                    new string[] { }
                 }
             });
         });

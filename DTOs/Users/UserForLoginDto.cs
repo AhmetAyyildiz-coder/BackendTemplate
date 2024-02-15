@@ -1,6 +1,6 @@
 ﻿using Core.Dto;
 
-namespace Entities.DTOs;
+namespace DTOs.Users;
 
 public class UserForLoginDto : IDto
 {

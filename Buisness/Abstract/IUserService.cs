@@ -1,5 +1,7 @@
 ﻿using Core.Entities;
 using Core.Utilities.Results;
+using DTOs.Users;
+
 
 
 namespace Buisness.Abstract;
@@ -10,4 +12,9 @@ public interface IUserService
     IResult Add(User user);
     IDataResult<User?> GetByEmail(string email);
     IResult Update(User user);
+
+
+    IDataResult<List<UserListDto>> GetAllSystemUser();
+
+    IResult RemoveUser(string email);
 }

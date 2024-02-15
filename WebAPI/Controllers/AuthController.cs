@@ -1,5 +1,7 @@
 using Buisness.Abstract;
-using Entities.DTOs;
+using DTOs.Users;
+
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,15 +9,16 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize]
     public class AuthController : ControllerBase
     {
         private IAuthService _authService;
-
         public AuthController(IAuthService authService)
         {
             _authService = authService;
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult Login(UserForLoginDto dto)
         {
@@ -28,9 +31,9 @@ namespace WebAPI.Controllers
             var res = _authService.CreateToken(userToLogin.Data);
 
             if (!res.Success)
-                return BadRequest(res.Message);
-            
-            return Ok(res.Data);
+                return BadRequest(res);
+
+            return Ok(res);
         }
 
 
@@ -46,9 +49,9 @@ namespace WebAPI.Controllers
             var result = _authService.CreateToken(registerResult.Data);
 
             if (result.Success)
-                return Ok(result.Data);
+                return Ok(result);
 
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpPost]
@@ -65,10 +68,12 @@ namespace WebAPI.Controllers
 
             if (!changePasswordResult.Success)
             {
-                return BadRequest(changePasswordResult.Message);
+                return BadRequest(changePasswordResult);
             }
 
             return Ok(changePasswordResult); // You may choose to return a success message or any relevant data
         }
+
+        
     }
 }
