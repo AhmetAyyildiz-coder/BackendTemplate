@@ -16,4 +16,5 @@ public interface IAuthService
     /// <returns></returns>
     IResult UserExist(string email);
     IDataResult<AccessToken> CreateToken(User user);
+    IResult ChangePassword(ChangePasswordDto dto);
 }

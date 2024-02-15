@@ -69,4 +69,34 @@ public class AuthManager : IAuthService
         var token =  _tokenHelper.CreateToken(user, operationClaims);
         return new DataResult<AccessToken>(token, true);
     }
+
+    public IResult ChangePassword(ChangePasswordDto dto)
+    {
+        var userToCheck = _userService.GetByEmail(dto.Email);
+
+        // Check if the user exists
+        if (userToCheck.Data == null)
+        {
+            return new Result(false, "Kullanıcı bulunamadı");
+        }
+
+        // Check if the provided old password is correct
+        if (!HashingHelper.VerifyPasswordHash(dto.OldPassword, userToCheck.Data.PasswordHash, userToCheck.Data.PasswordSalt))
+        {
+            return new Result(false, "Eski şifre yanlış");
+        }
+
+        // Generate new password hash and salt
+        byte[] newPasswordHash, newPasswordSalt;
+        HashingHelper.CreatePasswordHash(dto.NewPassword, out newPasswordHash, out newPasswordSalt);
+
+        // Update user's password with the new hash and salt
+        userToCheck.Data.PasswordHash = newPasswordHash;
+        userToCheck.Data.PasswordSalt = newPasswordSalt;
+
+        // Update user entity in the database
+        _userService.Update(userToCheck.Data);
+
+        return new Result(true, "Şifre başarıyla değiştirildi");
+    }
 }

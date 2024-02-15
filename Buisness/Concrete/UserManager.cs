@@ -52,4 +52,17 @@ public class UserManager : IUserService
             return new DataResult<User?>(null, false,e.Message);
         }
     }
+
+    public IResult Update(User user)
+    {
+        try
+        {
+            _userDal.Update(user);
+            return new Result(true);
+        }
+        catch (Exception e)
+        {
+            return new Result(false, e.Message);
+        }
+    }
 }
