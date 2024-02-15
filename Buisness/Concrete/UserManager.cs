@@ -1,4 +1,5 @@
 ﻿using Buisness.Abstract;
+using Core.Entities;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -40,15 +41,15 @@ public class UserManager : IUserService
         }
     }
 
-    public IDataResult<User> GetByName(string email)
+    public IDataResult<User?> GetByEmail(string email)
     {
         try
         {
-            return new DataResult<User>(_userDal.Get(u => u.Email == email),true);
+            return new DataResult<User?>(_userDal.Get(u => u.Email == email),true);
         }
         catch (Exception e)
         {
-            return new DataResult<User>(null, false,e.Message);
+            return new DataResult<User?>(null, false,e.Message);
         }
     }
 }

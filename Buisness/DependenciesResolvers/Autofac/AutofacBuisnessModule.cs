@@ -1,6 +1,8 @@
 ﻿using Autofac;
 using Buisness.Abstract;
 using Buisness.Concrete;
+using Core.Utilities.Security.Jwt;
+using Core.Utilities.Security.JWT;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework.Contexts;
 
@@ -22,5 +24,9 @@ public class AutofacBuisnessModule : Module
 
         builder.RegisterType<UserManager>().As<IUserService>();
         builder.RegisterType<EfUserDal>().As<IUserDal>();
+
+        builder.RegisterType<AuthManager>().As<IAuthService>();
+
+        builder.RegisterType<JwtHelper>().As<ITokenHelper>();
     }
 }
