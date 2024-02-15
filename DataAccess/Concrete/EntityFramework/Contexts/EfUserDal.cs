@@ -15,10 +15,17 @@ public class EfUserDal : EfEntityRepositoryBase<User,BaseAppDbContext>,IUserDal
     {
         using var context = new BaseAppDbContext();
 
-        // maybe return null
-        return context.UserOperationClaims
-            .Where(uoc => uoc.UserId == User.Id)
-            .Include(uoc => uoc.OperationClaim)
-            .Select(uoc => uoc.OperationClaim).ToList();
+      
+
+        return (from uop in context.UserOperationClaims
+            join u in context.Users
+                on uop.UserId equals u.Id
+            join op in context.OperationClaims
+                on uop.OperationClaimId equals op.Id
+            select new OperationClaim()
+            {
+                Id = op.Id,
+                Name = op.Name
+            }).ToList();
     }
 }

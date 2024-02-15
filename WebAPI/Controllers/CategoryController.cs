@@ -8,7 +8,7 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    [Authorize]
+   
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
@@ -18,8 +18,9 @@ namespace WebAPI.Controllers
             _categoryService = categoryService;
         }
 
-        [HttpGet("getcategories")]
-      
+        [HttpGet(nameof(GetCategories))]
+
+        [Authorize(Roles = "Product.List")]
         public IActionResult GetCategories()
         {
             var data = _categoryService.GetList();
@@ -31,7 +32,21 @@ namespace WebAPI.Controllers
             return BadRequest(data);
         }
 
-        
+
+        [HttpGet("{Id:int}")]
+        [Authorize]
+        public IActionResult GetCategory(int Id)
+        {
+            var data = _categoryService.GetById(Id);
+            if (!data.Success)
+            {
+                return BadRequest("Hata Oluþtu");
+            }
+
+            return Ok(data);
+        }
+
+     
         [HttpPost(template: "addcategory")]
         public IActionResult AddCategory([FromBody] Category category)
         {
