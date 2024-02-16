@@ -20,7 +20,7 @@ namespace WebAPI.Controllers
 
         [HttpGet(nameof(GetCategories))]
 
-        [Authorize(Roles = "Product.List")]
+        [Authorize]
         public IActionResult GetCategories()
         {
             var data = _categoryService.GetList();
