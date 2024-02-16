@@ -2,7 +2,7 @@
 using FluentValidation;
 using FluentValidation.Results;
 
-namespace Core.CrossCuttingConcerns;
+namespace Core.CrossCuttingConcerns.Validation;
 
 public class ValidationTool
 {
@@ -15,9 +15,9 @@ public class ValidationTool
     //    }
     //}
 
-    public static void Validate(IValidator TValidator,object entity)
+    public static void Validate(IValidator TValidator, object entity)
     {
-        
+
         var context = new ValidationContext<object>(entity);
         var result = TValidator.Validate(context);
         if (!result.IsValid)

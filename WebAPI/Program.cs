@@ -1,9 +1,11 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Buisness.Concrete;
+
 using Buisness.DependenciesResolvers.Autofac;
 using Buisness.Mapping.Automapper;
-
+using Core.DependencyResolvers;
+using Core.Extensions;
+using Core.Utilities.Ioc;
 using Core.Utilities.Security.Encyption;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -53,7 +55,10 @@ public class Program
         builder.Services.AddAuthorization();
 
         builder.Services.AddAutoMapper(typeof(MappingProfile));
-
+        builder.Services.AddDependencyResolvers(new ICoreModule[]
+        {
+            new CoreModule()
+        });
         // Add services to the container.
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

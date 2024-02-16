@@ -1,8 +1,9 @@
 ﻿using Buisness.Abstract;
 using Buisness.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
-using Core.CrossCuttingConcerns;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -33,6 +34,7 @@ public class ProductManager : IProductService
         return new DataResult<List<Product>>(_productDal.GetList(p => p.CategoryId == categoryId).ToList(),true);
     }
 
+    [CacheAspect]
     [TransactionScopeAspect]
     [ValidationAspect(typeof(ProductValidator),1)]
     public IResult Add(Product product)
