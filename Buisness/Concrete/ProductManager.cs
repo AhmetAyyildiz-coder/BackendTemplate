@@ -1,4 +1,7 @@
 ﻿using Buisness.Abstract;
+using Buisness.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -8,7 +11,6 @@ namespace Buisness.Concrete;
 public class ProductManager : IProductService
 {
     private readonly IProductDal _productDal;
-
     public ProductManager(IProductDal productDal)
     {
         _productDal = productDal;
@@ -30,11 +32,14 @@ public class ProductManager : IProductService
         return new DataResult<List<Product>>(_productDal.GetList(p => p.CategoryId == categoryId).ToList(),true);
     }
 
+
+   
     public IResult Add(Product product)
     {
         // normalde buraya buisness code yazılır.
         try
         {
+            ValidationTool.Validate(new ProductValidator(),product);
             _productDal.Add(product);
         }
         catch (Exception e)
