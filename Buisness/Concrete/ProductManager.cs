@@ -33,7 +33,7 @@ public class ProductManager : IProductService
     }
 
 
-   
+    [ValidationAspect(typeof(ProductValidator),1)]
     public IResult Add(Product product)
     {
         // normalde buraya buisness code yazılır.

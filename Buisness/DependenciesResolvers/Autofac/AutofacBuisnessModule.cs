@@ -1,10 +1,13 @@
 ﻿using Autofac;
+using Autofac.Extras.DynamicProxy;
 using Buisness.Abstract;
 using Buisness.Concrete;
+using Castle.DynamicProxy;
 using Core.Utilities.Security.Jwt;
 using Core.Utilities.Security.JWT;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework.Contexts;
+using Core.Utilities.Interceptors;
 
 namespace Buisness.DependenciesResolvers.Autofac;
 
@@ -29,6 +32,17 @@ public class AutofacBuisnessModule : Module
 
         builder.RegisterType<JwtHelper>().As<ITokenHelper>();
 
-       
+        // dynamic proxy olusturabilmek icin gerekli ayarlamalar
+        var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+
+
+        builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
+            .EnableInterfaceInterceptors(
+                new ProxyGenerationOptions()
+                {
+                    // selector ile araya girecek nesneyi belirlemeliyiz.
+                    Selector =new AspectInterceptorSelector()
+                }
+                ).SingleInstance();
     }
 }
