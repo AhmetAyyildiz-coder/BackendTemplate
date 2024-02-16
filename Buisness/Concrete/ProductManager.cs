@@ -34,7 +34,7 @@ public class ProductManager : IProductService
         return new DataResult<List<Product>>(_productDal.GetList(p => p.CategoryId == categoryId).ToList(),true);
     }
 
-    [CacheAspect]
+    
     [TransactionScopeAspect]
     [ValidationAspect(typeof(ProductValidator),1)]
     public IResult Add(Product product)

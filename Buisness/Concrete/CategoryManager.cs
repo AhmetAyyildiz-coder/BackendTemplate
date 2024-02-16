@@ -1,4 +1,5 @@
 ﻿using Buisness.Abstract;
+using Core.Aspects.Autofac.Caching;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -26,7 +27,7 @@ public class CategoryManager : ICategoryService
             return new DataResult<Category>(null, false, e.Message);
         }
     }
-
+    [CacheAspect]
     public IDataResult<List<Category>> GetList()
     {
         try
