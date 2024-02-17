@@ -32,6 +32,13 @@ public class AutofacBuisnessModule : Module
 
         builder.RegisterType<JwtHelper>().As<ITokenHelper>();
 
+
+        builder.RegisterType<EfUserOperationClaimDal>().As<IUserOperationClaimDal>();
+
+        builder.RegisterType<OperationClaimDal>().As<IOperationClaimDal>();
+
+
+
         // dynamic proxy olusturabilmek icin gerekli ayarlamalar
         var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 

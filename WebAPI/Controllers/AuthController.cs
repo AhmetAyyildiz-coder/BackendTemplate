@@ -28,7 +28,7 @@ namespace WebAPI.Controllers
             if (!userToLogin.Success)
                 return BadRequest(userToLogin.Message);
 
-            var res = _authService.CreateToken(userToLogin.Data);
+            var res = _authService.CreateToken(userToLogin.Data.Email);
 
             if (!res.Success)
                 return BadRequest(res);
@@ -46,7 +46,7 @@ namespace WebAPI.Controllers
                 return BadRequest("Bu email zaten kayıtlı !");
 
             var registerResult = _authService.Register(dto);
-            var result = _authService.CreateToken(registerResult.Data);
+            var result = _authService.CreateToken(registerResult.Data.Email);
 
             if (result.Success)
                 return Ok(result);

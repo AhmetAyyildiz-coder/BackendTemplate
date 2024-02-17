@@ -1,6 +1,6 @@
 ﻿using Core.Utilities.Messages;
 using FluentValidation;
-using FluentValidation.Results;
+
 
 namespace Core.CrossCuttingConcerns.Validation;
 
@@ -15,6 +15,14 @@ public class ValidationTool
     //    }
     //}
 
+    /// <summary>
+    /// Gelen validator nesnesi ile gelen entity'yi birbiriyle ilişkilendirip
+    /// AbstractValidator sınıfından kalıtım alan validator sınıfını bulur. Bu sınıfın
+    /// validate metodunu kullanır. 
+    /// </summary>
+    /// <param name="TValidator"></param>
+    /// <param name="entity"></param>
+    /// <exception cref="ArgumentException"></exception>
     public static void Validate(IValidator TValidator, object entity)
     {
 

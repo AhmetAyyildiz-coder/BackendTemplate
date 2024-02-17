@@ -1,4 +1,5 @@
 ﻿using Buisness.Abstract;
+using Buisness.BuisnessAspect.Autofac;
 using Buisness.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Transaction;
@@ -7,15 +8,26 @@ using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Microsoft.AspNetCore.Http;
 
 namespace Buisness.Concrete;
 
 public class ProductManager : IProductService
 {
     private readonly IProductDal _productDal;
+    // private IHttpContextAccessor _contextAccessor;
+    //public ProductManager(IProductDal productDal, IHttpContextAccessor contextAccessor)
+    //{
+    //    _productDal = productDal;
+    //    // bu sekilde HttpContextAccessor'a baglamak bu katmanı web tabanlı bir yaklaşıma zorlar. 
+    //    // winform vb uygulamalar icin bu calisamayacaktır.
+    //    // Bu sebeple Bunu aspect kullanarak çözüyoruz. 
+    //    _contextAccessor = contextAccessor;
+    //}
     public ProductManager(IProductDal productDal)
     {
         _productDal = productDal;
+
     }
 
     public IDataResult<Product> GetById(int Id)
@@ -23,9 +35,17 @@ public class ProductManager : IProductService
         return new DataResult<Product>(_productDal.Get(p => p.ProductId == Id), true);
     }
 
+    [SecuredOperation("Product.Read,Product.Viewer")]
     public IDataResult<List<Product>> GetList()
     {
-        return new DataResult<List<Product>>(_productDal.GetList().ToList(), true);
+        try
+        {
+            return new DataResult<List<Product>>(_productDal.GetList().ToList(), true);
+        }
+        catch (Exception e)
+        {
+            return new DataResult<List<Product>>(null, false, e.Message);
+        }
 
     }
 

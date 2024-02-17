@@ -23,6 +23,7 @@ public class EfEntityRepositoryBase<TEntity, TContext>
         return context.Set<TEntity>().SingleOrDefault(filter);
     }
 
+
     public virtual IList<TEntity> GetList(Expression<Func<TEntity, bool>> filter = null)
     {
         // short using usage

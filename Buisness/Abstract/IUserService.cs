@@ -14,7 +14,5 @@ public interface IUserService
     IResult Update(User user);
 
 
-    IDataResult<List<UserListDto>> GetAllSystemUser();
 
-    IResult RemoveUser(string email);
 }

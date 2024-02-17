@@ -72,40 +72,6 @@ public class UserManager : IUserService
         }
     }
 
-    #region Admin Methods 
-
-    public IDataResult<List<UserListDto>> GetAllSystemUser()
-    {
-        try
-        {
-            var users = _userDal.GetList();
-            var userDtos = _mapper.Map<List<UserListDto>>(users);
-            return new DataResult<List<UserListDto>>(userDtos, true);
-        }
-        catch (Exception e)
-        {
-
-            return new DataResult<List<UserListDto>>(null, false, e.Message);
-        }
-
-    }
-
-
-    public IResult RemoveUser(string email)
-    {
-        try
-        {
-            var user = _userDal.Get(u => u.Email == email);
-            _userDal.Delete(user);
-            return new Result(true, Messages.UserDeletedSuccess);
-
-        }
-        catch (Exception e)
-        {
-            return new Result(false, e.Message);
-        }
-    }
-
-    #endregion
+   
 
 }

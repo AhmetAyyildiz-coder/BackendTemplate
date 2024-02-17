@@ -12,4 +12,6 @@ public interface IUserDal : IEntityRepository<User>
     /// <param name="User"></param>
     /// <returns></returns>
     List<OperationClaim> GetClaims(User User);
+
+    User GetByEmail(string email);
 }

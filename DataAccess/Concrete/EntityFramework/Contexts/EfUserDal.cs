@@ -27,4 +27,10 @@ public class EfUserDal : EfEntityRepositoryBase<User,BaseAppDbContext>,IUserDal
                 Name = op.Name
             }).ToList();
     }
+
+    public User GetByEmail(string email)
+    {
+        using var context = new BaseAppDbContext();
+        return context.Users.FirstOrDefault(u => u.Email == email);
+    }
 }
