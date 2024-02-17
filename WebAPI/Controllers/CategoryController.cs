@@ -23,7 +23,7 @@ namespace WebAPI.Controllers
         [HttpGet(nameof(GetCategories))]
         public IActionResult GetCategories()
         {
-            IDataResult<List<Category>> categories = null;
+            IDataResult<List<Category>>? categories = null;
             try
             {
                 var data = _categoryService.GetList();
@@ -50,7 +50,7 @@ namespace WebAPI.Controllers
             var data = _categoryService.GetById(Id);
             if (!data.Success)
             {
-                return BadRequest("Hata Oluþtu");
+                return BadRequest("Hata Oluï¿½tu");
             }
 
             return Ok(data);

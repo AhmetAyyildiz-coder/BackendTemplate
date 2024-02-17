@@ -20,7 +20,6 @@ namespace WebAPI.Controllers
         [HttpGet("getproducts")]
         public IActionResult GetProducts()
         {
-            Thread.Sleep(5000);
             var data = _productService.GetList();
             if (data.Success)
             {

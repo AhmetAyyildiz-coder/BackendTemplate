@@ -6,7 +6,7 @@ namespace Buisness.Abstract;
 public interface ICategoryService
 {
     IDataResult<Category> GetById(int Id);
-    IDataResult<List<Category>> GetList();
+    IDataResult<List<Category>>? GetList();
     
     
     IResult Add(Category product);

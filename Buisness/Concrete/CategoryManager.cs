@@ -28,7 +28,7 @@ public class CategoryManager : ICategoryService
         }
     }
     [CacheAspect]
-    public IDataResult<List<Category>> GetList()
+    public IDataResult<List<Category>>? GetList()
     {
         try
         {

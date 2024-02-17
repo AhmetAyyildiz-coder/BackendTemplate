@@ -31,6 +31,6 @@ public class SecuredOperation : MethodInterception
             }
         }
 
-        throw new ArgumentException(Messages.AuthorizationDenied);
+        throw new ArgumentException(Messages.AccessDenied);
     }
 }
