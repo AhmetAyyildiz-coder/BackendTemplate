@@ -1,4 +1,5 @@
 using Buisness.Abstract;
+using Core.Aspects.Autofac.Performance;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,10 +16,11 @@ namespace WebAPI.Controllers
         {
             _productService = productService;
         }
-
+        [PerformanceAspect(2)]
         [HttpGet("getproducts")]
         public IActionResult GetProducts()
         {
+            Thread.Sleep(5000);
             var data = _productService.GetList();
             if (data.Success)
             {

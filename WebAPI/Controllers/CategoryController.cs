@@ -1,8 +1,10 @@
 using Buisness.Abstract;
+using Core.Utilities.Results;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace WebAPI.Controllers
 {
@@ -19,17 +21,25 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet(nameof(GetCategories))]
-
-        [Authorize]
         public IActionResult GetCategories()
         {
-            var data = _categoryService.GetList();
-            if (data.Success)
+            IDataResult<List<Category>> categories = null;
+            try
             {
-                return Ok(data.Data);
+                var data = _categoryService.GetList();
+                if (!data.Success)
+                {
+                    return BadRequest(data);
+                }
+
+                categories = data;
+            }
+            catch (Exception e)
+            {
+                return Unauthorized(e.Message);
             }
 
-            return BadRequest(data);
+            return Ok(categories);
         }
 
 
