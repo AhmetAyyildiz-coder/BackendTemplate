@@ -1,6 +1,6 @@
 ## BackendTemplate
 
-Bu proje katmanlı bir mimariyle (Entities, DTOs, DataAccess, Buisness, Core ve WebAPI) kurgulanmış, Autofac ile bağımlılık enjeksiyonu, JWT tabanlı kimlik doğrulama ve Swagger dokümantasyon desteğiyle hazır bir başlangıç şablonu sunuyor. AutoMapper profilleri ve çekirdek yardımcı sınıflar altyapı hazırlığını hızlandırıyor.
+Bu proje katmanlı bir mimariyle (Entities, DTOs, DataAccess, Business, Core ve WebAPI) kurgulanmış, Autofac ile bağımlılık enjeksiyonu, JWT tabanlı kimlik doğrulama ve Swagger dokümantasyon desteğiyle hazır bir başlangıç şablonu sunuyor. AutoMapper profilleri ve çekirdek yardımcı sınıflar altyapı hazırlığını hızlandırıyor.
 
 ### Güçlü Yanlar
 - Katmanlı yapı ve arayüzler sayesinde genişletilebilirlik düşünülmüş.
